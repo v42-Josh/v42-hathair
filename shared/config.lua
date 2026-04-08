@@ -43,33 +43,31 @@ Config.UsePersistence = true
     • Works separately for male and female peds
 ]]
 Config.HatHair = {
-    male = { -- Applies to male peds
+    male = {              -- Settings that apply to male characters (peds)
 
-        [12] = {
-            default = 12,
+        [12] = {          -- Hat/prop ID (e.g. hat index 12)
+            default = 12, -- Default hair style used when no specific texture match is found
             textures = {
-                [0] = 12,
-                [1] = 18,
-                [2] = 6
+                [0] = 12, -- If hat texture 0 is used → apply hair style 12
             }
         },
 
-        [15] = {
-            default = 7,
+        [15] = {         -- Hat/prop ID (e.g. hat index 15)
+            default = 7, -- Default hair style for this hat if texture isn't listed below
             textures = {
-                [0] = 7,
-                [1] = 9
+                [0] = 7, -- If hat texture 0 → use hair style 7
+                [1] = 9  -- If hat texture 1 → use hair style 9
             }
         }
     },
 
-    female = { -- Applies to female peds
+    female = {            -- Settings that apply to female characters (peds)
 
-        [10] = {
-            default = 14,
+        [10] = {          -- Hat/prop ID (e.g. hat index 10)
+            default = 14, -- Default hair style if no texture-specific override exists
             textures = {
-                [0] = 14,
-                [1] = 20
+                [0] = 14, -- If hat texture 0 → use hair style 14
+                [1] = 20  -- If hat texture 1 → use hair style 20
             }
         }
     }
