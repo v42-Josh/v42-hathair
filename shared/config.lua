@@ -10,6 +10,9 @@ Config.Debug = false
 -- Persist original hair across relog/restart when framework supports metadata
 Config.UsePersistence = true
 
+-- Prevent hats from falling off when the player gets hit / pushed
+Config.KeepHatOnHit = true
+
 --[[
     Hat → Hair Mapping Configuration
 
@@ -57,6 +60,13 @@ Config.HatHair = {
             textures = {
                 [0] = 7, -- If hat texture 0 → use hair style 7
                 [1] = 9  -- If hat texture 1 → use hair style 9
+            }
+        },
+
+        [234] = {         -- Hat/prop ID (e.g. hat index 15)
+            default = 93, -- Default hair style for this hat if texture isn't listed below
+            textures = {
+                [0] = 93, -- If hat texture 0 → use hair style 7
             }
         }
     },

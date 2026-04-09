@@ -89,6 +89,17 @@ local function RunPostLoadHatChecks()
     end)
 end
 
+local function ApplyDamagePropProtection(ped)
+    if not DoesEntityExist(ped) then return end
+
+    -- false = do not lose props on damage
+    if Config.KeepHatOnHit then
+        SetPedCanLosePropsOnDamage(ped, false, 0)
+    else
+        SetPedCanLosePropsOnDamage(ped, true, 0)
+    end
+end
+
 HandleHatHair = function(force)
     DebugPrint(('HandleHatHair called: force=%s playerLoaded=%s'):format(tostring(force), tostring(playerLoaded)))
 
@@ -158,6 +169,9 @@ local function OnPlayerLoaded()
     lastHatTexture = -999
     hairOverrideActive = false
 
+    local ped = PlayerPedId()
+    ApplyDamagePropProtection(ped)
+
     DebugPrint('Player loaded, requesting saved hair')
 
     Wait(2000)
@@ -167,6 +181,13 @@ local function OnPlayerLoaded()
 end
 
 local function OnPlayerUnloaded()
+    local ped = PlayerPedId()
+
+    if DoesEntityExist(ped) and originalHair then
+        ApplyHair(ped, originalHair)
+        DebugPrint('Restored original hair on unload')
+    end
+
     playerLoaded = false
     ResetState()
 end
@@ -222,6 +243,11 @@ end)
 CreateThread(function()
     while true do
         Wait(Config.CheckInterval)
+
+        if playerLoaded then
+            ApplyDamagePropProtection(PlayerPedId())
+        end
+
         HandleHatHair(false)
     end
 end)
